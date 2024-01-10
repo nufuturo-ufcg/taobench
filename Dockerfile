@@ -29,4 +29,4 @@ RUN dpkg -i ./libmysqlclient/libmysqlclient-dev_5.7.38-1ubuntu18.04_amd64.deb
 RUN cmake . -DWITH_MYSQL=ON
 RUN make
 
-ENTRYPOINT bash
+ENTRYPOINT sleep 1d

@@ -6,6 +6,14 @@ RUN apt install -y software-properties-common
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
 RUN apt install -y build-essential cmake g++-11
 
+# Including SuperiorMySqlpp
+WORKDIR /usr/local/include
+
+RUN apt install unzip
+
+COPY ./include .
+RUN unzip ./superior_mysqlpp.zip
+
 # Copying repository
 WORKDIR /taobench
 COPY . .
@@ -16,9 +24,6 @@ COPY . .
 RUN dpkg -i ./libmysqlclient/mysql-common_5.7.38-1ubuntu18.04_amd64.deb
 RUN dpkg -i ./libmysqlclient/libmysqlclient20_5.7.38-1ubuntu18.04_amd64.deb
 RUN dpkg -i ./libmysqlclient/libmysqlclient-dev_5.7.38-1ubuntu18.04_amd64.deb
-
-# Including SuperiorMySqlpp
-COPY ./include /usr/local/include
 
 # Building executable
 RUN cmake . -DWITH_MYSQL=ON
